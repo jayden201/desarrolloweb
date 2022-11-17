@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext,useState} from "react"
 import { DataContext } from "../../Context/DataProvider"
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
@@ -7,18 +7,44 @@ import { Link } from "react-router-dom";
 export const CarritoCompras = () =>{
     var itemSubtotal = 0;
     const provider = useContext(DataContext);
+    //const[unidades,setUnidades] =useState([]);
+    const[unidades,setUnidades] =useState('');
+    const[nombre,setNombre]=useState('');
+    const[precio,setPrecio]=useState('');
+   console.log(provider.carritoCompras);
 
-    console.log(provider.carritoCompras);
+
+    
     provider.carritoCompras.map((object,index)=>{
         var item = 0;
         
-        item=itemSubtotal=itemSubtotal+Math.round(object.valor);
-        console.log(item)
+        item=itemSubtotal=itemSubtotal+Math.round(object.precio)*unidades;
+        //console.log(item)
         provider.setCompra(item);
+        
 
        
     })
-    
+    const handleUnidades =(event) =>{
+        //console.log(event.target.value)
+        //setUnidades([...unidades,event.target.value]);
+        setUnidades(event.target.value);
+
+    }
+    const adicionarProductoVenta = (nombre,precio,unidades) =>{
+        setNombre(nombre)
+        setPrecio(precio)
+        setUnidades(unidades)
+        const objetoEnviar={
+            nombre:nombre,
+            precio:precio,
+            cantidad:unidades
+        };
+        provider.setVenta([...provider.carritoVenta,objetoEnviar]);
+
+        
+    }    
+
     return(
         <div className="continer">
         <div className="row mt-2">
@@ -37,18 +63,22 @@ export const CarritoCompras = () =>{
                         <th>Nombre articulo</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
-                      
+                        <th>Venta Final</th>
                     </tr>
                 </thead>
                 <tbody>
                    {
                        provider.carritoCompras.map((object,index) => {
                             return <tr>
+                                
                                         <td>{index}</td>
                                         <td>{object.nombre}</td>
-                                        <td>{object.valor}</td>
-                                        <td><button className="btn btn-primary">+</button><button className="btn btn-danger">-</button><input className="form-control" type="text" value="1"></input></td>
-                                        
+                                        <td>{object.precio}</td>
+                                        <td><input onChange={handleUnidades} className="form-control" type="text" ></input></td>
+                                        <td><button onClick={()=>{
+
+                                                adicionarProductoVenta(object.nombre,object.precio,unidades)
+                                                }}className="btn btn-primary">+</button></td>
                                     </tr>
                        }) 
                    }

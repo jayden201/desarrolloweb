@@ -10,7 +10,13 @@ import { DataContext } from '../../Context/DataProvider';
 
 export const Header = () =>{
     const Titulo = "Aplicación";
-    const provider = useContext(DataContext)
+    const provider = useContext(DataContext);
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+    const logOut = () =>{
+      localStorage.setItem("usuario",null);
+      window.location = '/';
+    }
     return (
         <Navbar bg="light" expand="lg">
           <Container>
@@ -18,14 +24,18 @@ export const Header = () =>{
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-              <Link className='nav-link' to="/">Home</Link>
+              <Link className='nav-link' to="/">Bienvenido  </Link>
                 <Link className='nav-link' to="/nuevo">Nuevo Producto</Link>
                 <Link className='nav-link' to="/productos">Lista Productos</Link>
-                <Link className='nav-link' to="/modificar">Modificar</Link>
                 <Link className='nav-link' to="/carrito">Lista Ventas</Link>
+                <Link className='nav-link' to="/checkout">Checkout</Link>
                 <Button onClick={()=>{
                         provider.setCarrito([]);
+                        provider.setVenta([]);
                 }} className='btn btn-danger'>Cancelar compra</Button>
+                                <Button onClick={()=>{  
+                                  logOut();
+                }} className='btn btn-danger'>Cerrar Sesión</Button>
               </Nav>
             </Navbar.Collapse>
           </Container>

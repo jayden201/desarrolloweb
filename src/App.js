@@ -9,7 +9,7 @@ function App() {
     <DataProvider>
       <div className="App">
           <BrowserRouter>
-            <Header></Header>              
+            <Header></Header>      
             <Ruteos></Ruteos>            
           </BrowserRouter>
       </div>
