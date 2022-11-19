@@ -14,7 +14,7 @@ export const UpdateProducto = () => {
     const [precio, setPrecio] = useState("");
     const[loading,setLoading] = useState(false);
     const[unidades,setUnidades] =useState("");
-
+    const userdata = JSON.parse(localStorage.getItem("usuario"));
     const objeto = {
         nombre: nombre,
         descripcion: descripcion,
@@ -25,7 +25,8 @@ export const UpdateProducto = () => {
     const apiServer = new ApiConnectionServer();
     const cargarPeticion = () => {
         setLoading(true);
-        const peticion = apiServer.getDataId("/producto/selectbyid/", id);
+        
+        const peticion = apiServer.getDataId("/producto/selectbyid/", id,userdata.token);
 
         peticion.then((data) => {
             setLoading(false);
@@ -50,7 +51,7 @@ export const UpdateProducto = () => {
     }, []);
 
     const modificar = (objeto) => {
-        const modificar = apiServer.putData(objeto,"/producto/update/", id); 
+        const modificar = apiServer.putData(objeto,"/producto/update/", id,userdata.token); 
         modificar.then((data) => {
             setLoading(false);
             return data.json();
