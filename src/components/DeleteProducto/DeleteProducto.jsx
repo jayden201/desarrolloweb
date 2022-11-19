@@ -8,10 +8,11 @@ import { useParams } from 'react-router-dom';
 export const DeleteProducto = () => {
     const { id } = useParams();
     const apiServer = new ApiConnectionServer();
+    const userdata = JSON.parse(localStorage.getItem("usuario"));
    
     const cargarPeticion = () => {
 
-        const peticion = apiServer.deleteDataId("/producto/delete/", id);
+        const peticion = apiServer.deleteDataId("/producto/delete/", id,userdata.token);
 
         peticion.then((data) => {
 
