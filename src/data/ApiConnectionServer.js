@@ -1,13 +1,14 @@
 
 export class ApiConnectionServer{
 
-    postData(bodyData,endpoint){
+    postData(bodyData,endpoint,token){
         var requestData = JSON.stringify(bodyData);
 
         var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint,
         {
             method:'POST',
             headers:{
+                'x-access-token': token, 
                 'Accept':'application/json, text/plain, */*',
                 'Content-Type':'application/json'
             },
@@ -16,13 +17,14 @@ export class ApiConnectionServer{
 
         return peticion;
     }
-    putData(bodyData,endpoint,id){
+    putData(bodyData,endpoint,id,token){
         var requestData = JSON.stringify(bodyData);
 
         var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint+id,
         {
             method:'PUT',
             headers:{
+                'x-access-token': token, 
                 'Accept':'application/json, text/plain, */*',
                 'Content-Type':'application/json'
             },
@@ -34,23 +36,40 @@ export class ApiConnectionServer{
     
 
 
-    getData(endpoint){
-        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint);
+    getData(endpoint,token){
+        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint,
+                            {
+            method:'GET',
+            headers:{
+                'x-access-token': token, 
+                'Accept':'application/json, text/plain, */*',
+                'Content-Type':'application/json'
+            }
+        });
         return peticion;
     }
-    getDataId(endpoint,id){
+    getDataId(endpoint,id,token){
         
-        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint+id)
+        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint+id,
+                            {
+            method:'GET',
+            headers:{
+                'x-access-token': token, 
+                'Accept':'application/json, text/plain, */*',
+                'Content-Type':'application/json'
+            }
+        })
 
      
         return peticion;
     }
-    deleteDataId(endpoint,id){
+    deleteDataId(endpoint,id,token){
         
         var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint+id,
         {
             method:'DELETE',
             headers:{
+                'x-access-token': token, 
                 'Accept':'application/json, text/plain, */*',
                 'Content-Type':'application/json'
             },
