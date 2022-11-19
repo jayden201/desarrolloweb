@@ -13,7 +13,9 @@ export const ListaProducto = () =>{
     const  apiServer = new ApiConnectionServer();
     var userinfo;
     const cargarPeticion = () =>{
-        const peticion = apiServer.getData('/producto/getall');
+        const userdata = JSON.parse(localStorage.getItem("usuario"));
+        const peticion = apiServer.getData('/producto/getall',userdata.token);
+        
         peticion.then((data) => {
             //setLoading(false);
             
