@@ -4,7 +4,7 @@ export class ApiConnectionServer{
     postData(bodyData,endpoint){
         var requestData = JSON.stringify(bodyData);
 
-        var peticion = fetch("http://localhost:8080/api/" + endpoint,
+        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint,
         {
             method:'POST',
             headers:{
@@ -19,7 +19,7 @@ export class ApiConnectionServer{
     putData(bodyData,endpoint,id){
         var requestData = JSON.stringify(bodyData);
 
-        var peticion = fetch("http://localhost:8080/api/" + endpoint+id,
+        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint+id,
         {
             method:'PUT',
             headers:{
@@ -35,19 +35,19 @@ export class ApiConnectionServer{
 
 
     getData(endpoint){
-        var peticion = fetch("http://localhost:8080/api/" + endpoint);
+        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint);
         return peticion;
     }
     getDataId(endpoint,id){
         
-        var peticion = fetch("http://localhost:8080/api/" + endpoint+id)
+        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint+id)
 
      
         return peticion;
     }
     deleteDataId(endpoint,id){
         
-        var peticion = fetch("http://localhost:8080/api/" + endpoint+id,
+        var peticion = fetch("https://apidesarrollo12.herokuapp.com/api/" + endpoint+id,
         {
             method:'DELETE',
             headers:{
