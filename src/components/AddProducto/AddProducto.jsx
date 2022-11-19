@@ -34,6 +34,7 @@ export const AddProducto = () => {
     //console.log(provider.listaProductos)
 
     const adicionarProducto = async(producto) =>{
+        const userdata = JSON.parse(localStorage.getItem("usuario"));
         const  apiServer = new ApiConnectionServer();
         //console.log(producto);
         provider.setLista([...provider.listaProductos,producto]);
@@ -46,7 +47,7 @@ export const AddProducto = () => {
         //objeto.imagen.name = imagen.name;
         objeto.imagen.name = producto.nombre+"."+extension;
         
-        const peticion = apiServer.postData(objeto,'/producto/create');
+        const peticion = apiServer.postData(objeto,'/producto/create',userdata.token);
         peticion.then((data) => {
             setLoading(false);
             return data.json();
