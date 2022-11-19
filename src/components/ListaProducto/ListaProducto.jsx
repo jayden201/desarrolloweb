@@ -11,9 +11,10 @@ export const ListaProducto = () =>{
     //console.log(provider.listaProductos)
     const provider = useContext(DataContext);
     const  apiServer = new ApiConnectionServer();
+    const userdata = JSON.parse(localStorage.getItem("usuario"));
     var userinfo;
     const cargarPeticion = () =>{
-        const userdata = JSON.parse(localStorage.getItem("usuario"));
+        
         const peticion = apiServer.getData('/producto/getall',userdata.token);
         
         peticion.then((data) => {
